@@ -1,0 +1,48 @@
+﻿    @{
+    ViewData["Title"] = "Panel de Administración";
+}
+
+<div class="mt-4 d-flex justify-content-start gap-2" style="margin-bottom: 15px;">
+    <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> Panel Principal
+    </a>
+</div>
+
+<h2 class="mb-4 text-center"><i class="bi bi-speedometer2 text-warning"></i> Panel de Administración</h2>
+
+<div class="row justify-content-center g-4">
+    <div class="col-md-5">
+        <div class="card shadow-lg border-0 h-100 text-center p-4 hover-card">
+            <i class="bi bi-people display-3 text-primary mb-3"></i>
+            <h4>Gestión de Usuarios</h4>
+            <p class="text-muted">Administra los roles y permisos de los usuarios registrados.</p>
+            <a asp-action="UserManagement" class="btn btn-primary mt-3">
+                <i class="bi bi-person-gear"></i> Ir a gestión de usuarios
+            </a>
+        </div>
+    </div>
+
+    <div class="col-md-5">
+        <div class="card shadow-lg border-0 h-100 text-center p-4 hover-card">
+            <i class="bi bi-rulers display-3 text-success mb-3"></i>
+            <h4>Gestión de Unidades de Medida</h4>
+            <p class="text-muted">Agrega, edita o elimina unidades utilizadas por los materiales.</p>
+            <a asp-controller="UnitOfMeasures" asp-action="Index" class="btn btn-success mt-3">
+                <i class="bi bi-box-seam"></i> Ir a gestión de unidades
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <style>
+        .hover-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .hover-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 0.5rem 1.2rem rgba(0, 0, 0, 0.15);
+         }
+    </style>
+}

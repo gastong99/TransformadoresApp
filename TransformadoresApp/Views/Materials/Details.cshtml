@@ -1,0 +1,28 @@
+@model TransformadoresApp.Models.Material
+@{
+    ViewData["Title"] = "Detalles de Material";
+}
+
+<div class="card shadow-sm p-4 mb-5">
+    <h2 class="mb-4"><i class="bi bi-file-text"></i> Detalles del Material</h2>
+
+    <div class="table-responsive mb-4">
+        <table class="table table-bordered">
+            <tbody>
+                <tr><th>Código</th><td>@Model.Code</td></tr>
+                <tr><th>Nombre</th><td>@Model.Name</td></tr>
+                <tr><th>Unidad de medida</th><td>@Model.UnitOfMeasure?.Name</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-4 d-flex justify-content-start gap-2">
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Volver
+        </a>
+
+        <a asp-action="Edit" asp-route-id="@Model.MaterialId" class="btn btn-warning">
+            <i class="bi bi-pencil"></i> Modificar Material
+        </a>
+    </div>
+</div>

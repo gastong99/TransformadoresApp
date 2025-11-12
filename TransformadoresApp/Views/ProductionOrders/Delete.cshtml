@@ -1,0 +1,38 @@
+@model TransformadoresApp.Models.ProductionOrder
+@{
+    ViewData["Title"] = "Eliminar Orden de Producción";
+}
+
+<div class="card shadow-sm p-4 mb-5">
+    <h2 class="mb-4 text-danger"><i class="bi bi-trash"></i> Eliminar Orden de Producción</h2>
+
+    <div class="alert alert-warning">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+        <strong>Atención:</strong> ¿Está seguro que deseas eliminar esta orden? Esta acción no se puede deshacer.
+    </div>
+
+    <div class="table-responsive mb-3">
+        <table class="table table-delete table-bordered">
+            <tbody>
+                <tr><th>Transformador</th><td>@Model.Product?.Name</td></tr>
+                <tr><th>Cantidad</th><td>@Model.Quantity</td></tr>
+                <tr><th>Fecha de creación</th><td>@Model.OrderDate.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td></tr>
+                <tr><th>Estado</th><td>@Model.Status</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <form asp-action="Delete" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="ProductionOrderId" />
+
+        <div class="d-flex justify-content-start gap-2">
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Cancelar
+            </a>
+            <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash"></i> Eliminar
+            </button>
+        </div>
+    </form>
+</div>

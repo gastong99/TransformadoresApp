@@ -1,0 +1,22 @@
+﻿<form asp-controller="Auth" asp-action="Login" method="post" class="text-center">
+    <h3 class="mb-4"><i class="bi bi-box-arrow-in-right"></i> Iniciar sesión</h3>
+
+    <div class="form-floating mb-3">
+        <input name="email" type="email" class="form-control" placeholder="Correo electrónico" required />
+        <label>Correo electrónico</label>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input name="password" type="password" class="form-control" placeholder="Contraseña" required />
+        <label>Contraseña</label>
+    </div>
+
+    <button type="submit" class="w-100 btn btn-primary mb-3">
+        <i class="bi bi-door-open"></i> Ingresar
+    </button>
+
+    <p class="text-black-50">
+        ¿No tenés una cuenta?
+        <a href="#" class="fw-bold toggle-register text-decoration-none" style="color:rgb(25, 135, 84);">Registrate aquí</a>
+    </p>
+</form>

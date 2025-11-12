@@ -1,0 +1,49 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using TransformadoresApp.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User)) {
+    var user = await UserManager.GetUserAsync(User);
+    var roles = await UserManager.GetRolesAsync(user);
+
+    <div class="dropdown">
+        <a class="nav-link dropdown-toggle d-flex align-items-center text-dark" href="#" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person-circle me-1"></i>
+            <span>@user.UserName</span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userMenu">
+            <li class="dropdown-header">
+                <strong>@user.Email</strong><br />
+                <small class="text-muted">Rol: @(roles.FirstOrDefault() ?? "Sin rol")</small>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+
+            @if (User.IsInRole("Administrador")) {
+                <li>
+                    <a class="dropdown-item" asp-controller="Admin" asp-action="Index">
+                        <i class="bi bi-gear"></i> Panel de administración
+                    </a>
+                </li>
+            }
+
+            <li>
+                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home")" method="post" class="dropdown-item p-0">
+                    <button type="submit" class="btn btn-link dropdown-item text-danger">
+                        <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+                    </button>
+                </form>
+            </li>
+        </ul>
+    </div>
+}
+else {
+    <div class="d-flex align-items-center gap-2">
+        <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-primary btn-sm">
+            <i class="bi bi-box-arrow-in-right"></i> Iniciar sesión
+        </a>
+        <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-outline-success btn-sm">
+            <i class="bi bi-person-plus"></i> Registrarse
+        </a>
+    </div>
+}

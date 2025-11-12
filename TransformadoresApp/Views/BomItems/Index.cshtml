@@ -1,0 +1,39 @@
+@model IEnumerable<TransformadoresApp.Models.BomItem>
+@{
+    ViewData["Title"] = "Lista de Materiales de Fabricación";
+}
+
+<h2>Lista de Materiales de Fabricación</h2>
+
+<p>
+    <a asp-controller="Products" asp-action="Index" class="btn btn-info">Ir a Transformadores</a>
+</p>
+
+<table class="table table-light table-bordered">
+    <thead class="table-info">
+        <tr>
+            <th class="text-center">ID</th>
+            <th class="text-center">Transformador</th>
+            <th class="text-center">Material</th>
+            <th class="text-center">Cantidad por unidad</th>
+            <th class="text-center">Unidad de medida</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model) {
+            <tr>
+                <td class="text-center">@item.ProductId</td>
+                <td class="text-center">@item.Product?.Name</td>
+                <td class="text-center">@item.Material?.Name</td>
+                <td class="text-center">@item.QuantityPerUnit</td>
+                <td class="text-center">@item.Material?.UnitOfMeasure?.Name</td>
+                <td class="text-center">
+                    <a asp-action="Edit" asp-route-id="@item.BomItemId" class="btn btn-sm btn-warning">
+                        <i class="bi bi-pencil"></i> Modificar
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

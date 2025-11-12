@@ -1,0 +1,44 @@
+@model TransformadoresApp.Models.Material
+@{
+    ViewData["Title"] = "Modificar Material";
+}
+
+<div class="card shadow-sm p-4">
+    <h2 class="mb-4"><i class="bi bi-pencil-square"></i> Modificar Material</h2>
+
+    <form asp-action="Edit" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="MaterialId" />
+
+        <div class="row g-3">
+            <div class="col mb-3">
+                <label asp-for="Code" class="form-label">Código</label>
+                <input asp-for="Code" class="form-control" />
+                <span asp-validation-for="Code" class="text-danger"></span>
+            </div>
+            <div class="col mb-3">
+                <label asp-for="Name" class="form-label">Nombre</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="UnitOfMeasureId" class="form-label">Unidad de medida</label>
+                <select asp-for="UnitOfMeasureId" asp-items="ViewBag.UnitOfMeasureId" class="form-control"></select>
+                <span asp-validation-for="UnitOfMeasureId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mt-4 d-flex justify-content-start gap-2">
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Volver
+            </a>
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-save"></i> Guardar modificaciones
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

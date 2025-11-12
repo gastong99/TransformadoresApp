@@ -1,0 +1,63 @@
+@model IEnumerable<TransformadoresApp.Models.Material>
+@{
+    ViewData["Title"] = "Materiales";
+}
+
+<div class="mt-4 d-flex justify-content-start gap-2" style="margin-bottom: 15px;">
+    <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> Panel Principal
+    </a>
+</div>
+
+<div class="card shadow-sm p-4">
+    <h2 class="mb-4 text-center"><i class="bi bi-gear text-danger"></i> Materiales</h2>
+
+    <div class="d-flex mb-3 flex-wrap gap-2">
+        <a asp-action="Create" class="btn btn-success" style="margin-right: 20px;">
+            <i class="bi bi-plus-circle"></i> Nuevo Material
+        </a>
+
+        @if (User.IsInRole("Administrador")) {
+            @using (Html.BeginForm("Import", "Materials", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="d-flex align-items-center gap-2">
+                    <button type="submit" class="btn btn-outline-success">
+                        <i class="bi bi-file-earmark-arrow-up"></i> Importar desde Excel
+                    </button>
+                    <input type="file" name="file" accept=".xlsx" class="form-control form-control-sm" style="max-width:250px; font-size:10px;" required />
+                </div>
+            }
+        }
+    </div>
+
+    <table class="table table-striped table-hover mt-3">
+        <thead class="table-primary">
+            <tr>
+                <th class="text-center">Código</th>
+                <th class="text-center">Nombre</th>
+                <th class="text-center">Unidad de medida</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+            <tr>
+                <td class="text-center">@item.Code</td>
+                <td class="text-center">@item.Name</td>
+                <td class="text-center">@item.UnitOfMeasure?.Name</td>
+                <td class="text-end">
+                    <a asp-action="Edit" asp-route-id="@item.MaterialId" class="btn btn-sm btn-outline-warning" style="color:dimgrey;">
+                        <i class="bi bi-pencil"></i> Modificar
+                    </a>
+                    <a asp-action="Details" asp-route-id="@item.MaterialId" class="btn btn-sm btn-outline-info" style="color:dimgrey;">
+                        <i class="bi bi-file-text"></i> Detalles
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@item.MaterialId" class="btn btn-sm btn-outline-danger" style="color:black;">
+                        <i class="bi bi-trash"></i> Eliminar
+                    </a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

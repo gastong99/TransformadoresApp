@@ -1,0 +1,38 @@
+@model TransformadoresApp.Models.Product
+@{
+    ViewData["Title"] = "Eliminar Transformador";
+}
+
+<div class="card shadow-sm p-4 mb-5">
+    <h2 class="mb-4 text-danger"><i class="bi bi-trash"></i> Eliminar Transformador</h2>
+
+    <div class="alert alert-warning">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+        <strong>¿Está seguro que desea eliminar este transformador?</strong> Esta acción no se puede deshacer.
+    </div>
+
+    <div class="table-responsive mb-3">
+        <table class="table table-delete table-bordered">
+            <tbody>
+                <tr><th>Código</th><td>@Model.Code</td></tr>
+                <tr><th>Nombre</th><td>@Model.Name</td></tr>
+                <tr><th>Potencia</th><td>@Model.PotenciaKVA</td></tr>
+                <tr><th>Peso</th><td>@Model.Peso</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <form asp-action="Delete" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="ProductId" />
+
+        <div class="d-flex justify-content-start gap-2">
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Cancelar
+            </a>
+            <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash"></i> Eliminar
+            </button>
+        </div>
+    </form>
+</div>

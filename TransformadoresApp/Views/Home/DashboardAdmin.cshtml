@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Panel Principal";
+}
+
+<h2 class="text-center mb-5 mt-4 fw-bold text-secondary">
+    Panel Principal - Administrador
+</h2>
+
+<div class="dashboard-grid">
+    <a asp-controller="Products" asp-action="Index" class="card dashboard-card text-decoration-none">
+        <i class="bi bi-lightning display-3 mb-3 text-primary"></i>
+        <h4>Transformadores</h4>
+    </a>
+    <a asp-controller="Materials" asp-action="Index" class="card dashboard-card text-decoration-none">
+        <i class="bi bi-gear display-3 mb-3 text-danger"></i>
+        <h4>Materiales</h4>
+    </a>
+    <a asp-controller="ProductionOrders" asp-action="Index" class="card dashboard-card text-decoration-none">
+        <i class="bi bi-list-check display-3 mb-3 text-success"></i>
+        <h4>Órdenes de Producción</h4>
+    </a>
+    <a asp-controller="Admin" asp-action="Index" class="card dashboard-card text-decoration-none">
+        <i class="bi bi-speedometer2 display-3 mb-3 text-warning"></i>
+        <h4>Panel de Administración</h4>
+    </a>
+</div>

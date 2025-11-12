@@ -1,0 +1,68 @@
+@model TransformadoresApp.Models.BomItem
+@{
+    ViewData["Title"] = "Agregar material de fabricación";
+}
+
+<h2 class="mb-3"><i class="bi bi-plus-circle"></i> Agregar material de fabricación para "<strong>@Model.Product?.Name</strong>"</h2>
+
+<form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+    <input asp-for="ProductId" type="hidden" />
+
+    <div class="mb-3">
+        <label asp-for="MaterialId" class="form-label">Material</label>
+        <select asp-for="MaterialId" asp-items="@(ViewData["MaterialId"] as SelectList)" class="form-control" id="materialSelect" required></select>
+        <span asp-validation-for="MaterialId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Unidad de medida</label>
+        <input type="text" id="unitDisplay" class="form-control" readonly disabled />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="QuantityPerUnit" class="form-label">Cantidad por unidad</label>
+        <input asp-for="QuantityPerUnit" class="form-control" />
+        <span asp-validation-for="QuantityPerUnit" class="text-danger"></span>
+    </div>
+
+    <a asp-controller="Products" asp-action="Details" asp-route-id="@Model.ProductId" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> Volver
+    </a>
+    <button type="submit" class="btn btn-primary">
+        <i class="bi bi-save"></i> Agregar material
+    </button>
+</form>
+
+@section Scripts {
+    <script>
+        const select = document.getElementById('materialSelect');
+        const unitDisplay = document.getElementById('unitDisplay');
+
+        select.addEventListener('change', async () => {
+            const id = select.value;
+            if (!id) {
+                unitDisplay.value = '';
+                return;
+            }
+
+            try 
+            {
+                const res = await fetch(`/BomItems/GetUnitOfMeasure?materialId=${id}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    unitDisplay.value = data.unit;
+                } else {
+                    unitDisplay.value = 'No disponible';
+                }
+            } 
+            catch {
+                unitDisplay.value = 'Error al cargar';
+            }
+        });
+    </script>
+}
+
+
+
+

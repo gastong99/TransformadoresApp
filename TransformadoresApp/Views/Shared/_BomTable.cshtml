@@ -1,0 +1,25 @@
+@model IEnumerable<TransformadoresApp.Models.BomResultViewModel>
+
+@if (Model == null || !Model.Any()) {
+    <p>No hay materiales para mostrar.</p>
+}
+else {
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Material</th>
+                <th>Cantidad total</th>
+                <th>Unidad de medida</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                <tr>
+                    <td>@item.MaterialName</td>
+                    <td>@item.TotalQty</td>
+                    <td>@item.Unit</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

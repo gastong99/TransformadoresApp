@@ -1,0 +1,70 @@
+@model TransformadoresApp.Models.ProductionOrder
+@{
+    ViewData["Title"] = "Detalle de Orden";
+    var bom = ViewData["BomResult"] as IEnumerable<TransformadoresApp.Models.BomResultViewModel>;
+
+    string BadgeClase(TransformadoresApp.Models.ProductionStatus estado) =>
+        estado switch
+        {
+            TransformadoresApp.Models.ProductionStatus.Pendiente => "badge bg-warning text-dark",
+            TransformadoresApp.Models.ProductionStatus.EnProceso => "badge bg-primary",
+            TransformadoresApp.Models.ProductionStatus.Completada => "badge bg-success",
+            TransformadoresApp.Models.ProductionStatus.Cancelada => "badge bg-danger",
+            _ => "badge bg-secondary"
+        };
+}
+
+<div class="card shadow-sm p-4 mb-5">
+    <h2 class="mb-4"><i class="bi bi-receipt"></i> Detalles de Orden #@Model.ProductionOrderId</h2>
+
+    <div class="table-responsive mb-4">
+        <table class="table table-bordered">
+            <tbody>
+                <tr><th>Transformador</th><td>@Model.Product?.Name</td></tr>
+                <tr><th>Cantidad a fabricar</th><td>@Model.Quantity?.ToString("0.##")</td></tr>
+                <tr><th>Fecha</th><td>@Model.OrderDate.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td></tr>
+                <tr><th>Estado</th><td><span class="@BadgeClase(Model.Status)">@Model.Status.ToString().Replace("EnProceso", "En Proceso")</span></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h4 class="mt-4">Materiales requeridos</h4>
+
+    @if (bom != null && bom.Any()) {
+        <div class="table-responsive mt-2 mb-4">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-info">
+                    <tr>
+                        <th>Material</th>
+                        <th class="text-end">Cantidad Total</th>
+                        <th>Unidad de medida</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in bom) {
+                        <tr>
+                            <td>@item.MaterialName</td>
+                            <td class="text-end">@($"{item.TotalQty:0.##}")</td>
+                            <td>@item.Unit</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else {
+        <p class="text-danger">No se pudo calcular materiales (verificar la lista de materiales del transformador).</p>
+    }
+
+    <div class="mt-4 d-flex justify-content-start gap-2">
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Volver
+        </a>
+        <a asp-action="Edit" asp-route-id="@Model.ProductionOrderId" class="btn btn-warning @(Model.Status is TransformadoresApp.Models.ProductionStatus.Completada or TransformadoresApp.Models.ProductionStatus.Cancelada ? "disabled" : "")">
+            <i class="bi bi-pencil"></i> Modificar
+        </a>
+        <a asp-action="GeneratePdf" asp-route-id="@Model.ProductionOrderId" target="_blank" class="btn btn-danger @(Model.Status is TransformadoresApp.Models.ProductionStatus.Completada or TransformadoresApp.Models.ProductionStatus.Cancelada ? "disabled" : "")">
+            <i class="bi bi-file-earmark-pdf"></i> Generar PDF
+        </a>
+    </div>
+</div>

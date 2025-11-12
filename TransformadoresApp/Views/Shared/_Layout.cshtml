@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - TransformadoresApp</title>
+    <link rel="shortcut icon" href="~/favicon.ico" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/TransformadoresApp.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar main-navbar fixed-top px-4 py-2 shadow-sm">
+            <div class="container-fluid d-flex justify-content-between align-items-center">
+
+                <a class="navbar-brand d-flex align-items-center" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/RostLogo2.jpg" alt="RostagnoLogo" style="height:40px; margin-right:8px;" />
+                </a>
+
+                @if (User.Identity?.IsAuthenticated ?? false) {
+                    <partial name="_LoginPartial" />
+                }
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" class="main-container">
+        <div class="content-wrapper">
+            @await Html.PartialAsync("_Alerts")
+            @RenderBody()
+        </div>
+    </main>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

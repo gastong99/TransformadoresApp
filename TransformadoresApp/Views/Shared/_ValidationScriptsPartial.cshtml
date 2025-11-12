@@ -1,0 +1,36 @@
+﻿<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation/dist/localization/messages_es.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    // Normaliza números
+    $.validator.methods.number = function (value, element) {
+        if (this.optional(element)) return true;
+        var v = String(value).trim().replace(/\s/g, '');
+        if (v.indexOf(',') > -1 && v.indexOf('.') > -1) {
+            v = v.replace(/\./g, '').replace(/,/g, '.');
+        } else {
+            v = v.replace(/,/g, '.');
+        }
+        return !isNaN(v) && isFinite(v);
+    };
+
+    // Mensajes de validación en español (refuerzo)
+    $.extend($.validator.messages, {
+        required: "Este campo es obligatorio.",
+        number: "El valor ingresado no es un número válido.",
+        range: $.validator.format("El valor debe estar entre {0} y {1}."),
+        min: $.validator.format("El valor debe ser mayor o igual a {0}."),
+        max: $.validator.format("El valor debe ser menor o igual a {0}.")
+    });
+
+    // Validación de rangos considerando coma o punto decimal
+    $.validator.methods.range = function (value, element, param) {
+        var globalizedValue = value.replace(",", ".");
+        return this.optional(element) || (globalizedValue >= param[0] && globalizedValue <= param[1]);
+    };
+</script>
+
+
+

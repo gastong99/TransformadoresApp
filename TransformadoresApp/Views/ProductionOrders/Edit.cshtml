@@ -1,0 +1,47 @@
+@model TransformadoresApp.Models.ProductionOrder
+@{
+    ViewData["Title"] = "Modificar Orden de Producción";
+    var estados = ViewBag.StatusList as List<SelectListItem>;
+}
+
+<div class="card shadow-sm p-4">
+    <h2 class="mb-4"><i class="bi bi-pencil-square"></i> Modificar Orden de Producción</h2>
+
+    <form asp-action="Edit" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="ProductionOrderId" />
+        <input type="hidden" asp-for="ProductId" />
+
+        <div class="row g-3">
+            <div class="col mb-3">
+                <label class="form-label">Transformador</label>
+                <input class="form-control" value="@Model.Product?.Name" disabled />
+            </div>
+
+            <div class="col mb-3">
+                <label asp-for="Quantity" class="form-label">Cantidad a fabricar</label>
+                <input asp-for="Quantity" type="number" min="1" class="form-control" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+
+            <div class="col mb-3">
+                <label asp-for="Status" class="form-label">Estado</label>
+                <select asp-for="Status" class="form-select" asp-items="estados"></select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mt-4 d-flex justify-content-start gap-2">
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Volver
+            </a>
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-save"></i> Guardar modificaciones
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

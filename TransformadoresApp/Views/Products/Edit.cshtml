@@ -1,0 +1,96 @@
+@model TransformadoresApp.Models.Product 
+@{ 
+    ViewData["Title"] = "Modificar Transformador"; 
+} 
+
+<div class="card shadow-sm p-4"> 
+    <h2 class="mb-4"><i class="bi bi-pencil-square"></i> Modificar Transformador</h2> 
+    
+    <form asp-action="Edit" method="post"> 
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="ProductId" />
+
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label asp-for="Code" class="form-label">Código</label>
+                <input asp-for="Code" class="form-control" />
+                <span asp-validation-for="Code" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="Name" class="form-label">Nombre</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="PotenciaKVA" class="form-label">Potencia (kVA)</label>
+                <input asp-for="PotenciaKVA" class="form-control" />
+                <span asp-validation-for="PotenciaKVA" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="PerdidasPo" class="form-label">Pérdidas Po (W)</label>
+                <input asp-for="PerdidasPo" class="form-control" />
+                <span asp-validation-for="PerdidasPo" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="PerdidasPcc" class="form-label">Pérdidas Pcc (W)</label>
+                <input asp-for="PerdidasPcc" class="form-control" />
+                <span asp-validation-for="PerdidasPcc" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="Ucc" class="form-label">Ucc (%)</label>
+                <input asp-for="Ucc" class="form-control" step="any" />
+                <span asp-validation-for="Ucc" class="text-danger"></span>
+            </div>
+
+            <div class ="col-md-6">
+                <label asp-for="Largo" class="form-label">Largo (mm)</label>
+                <input asp-for="Largo" class="form-control" />
+                <span asp-validation-for="Largo" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="Ancho" class="form-label">Ancho (mm)</label>
+                <input asp-for="Ancho" class="form-control" />
+                <span asp-validation-for="Ancho" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="Alto" class="form-label">Alto (mm)</label>
+                <input asp-for="Alto" class="form-control" />
+                <span asp-validation-for="Alto" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="Diametro" class="form-label">Diámetro (mm)</label>
+                <input asp-for="Diametro" class="form-control" />
+                <span asp-validation-for="Diametro" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="Peso" class="form-label">Peso (Kg)</label>
+                <input asp-for="Peso" class="form-control" />
+                <span asp-validation-for="Peso" class="text-danger"></span>
+            </div>
+        </div>
+        
+        
+        <div class="mt-4 d-flex justify-content-start gap-2"> 
+            <a asp-action="Index" class="btn btn-secondary"> 
+                <i class="bi bi-arrow-left"></i> Volver 
+            </a> 
+            
+            <button type="submit" class="btn btn-primary"> 
+                <i class="bi bi-save"></i> Guardar cambios 
+            </button> 
+        </div> 
+    </form> 
+</div> 
+
+@section Scripts { 
+    <partial name="_ValidationScriptsPartial" /> 
+}

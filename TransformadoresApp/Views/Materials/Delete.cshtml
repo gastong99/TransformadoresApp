@@ -1,0 +1,57 @@
+@model TransformadoresApp.Models.Material
+@{
+    ViewData["Title"] = "Eliminar Material";
+}
+
+<div class="card shadow-sm p-4 mb-5">
+    <h2 class="mb-3 text-danger"><i class="bi bi-trash"></i> Eliminar Material</h2>
+
+    @if (ViewBag.UsedIn != null && ((List<string>)ViewBag.UsedIn).Any()) {
+        <div class="alert alert-danger">
+            <i class="bi bi-x-octagon-fill"></i>
+            <strong>No se puede eliminar.</strong> Este material se utiliza en los siguientes transformadores:
+            <ul>
+                @foreach (var name in (List<string>)ViewBag.UsedIn) {
+                    <li>@name</li>
+                }
+            </ul>
+        </div>
+
+        <div class="d-flex justify-content-start gap-2">
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Volver
+            </a>
+        </div>
+    }
+    else {
+        <form asp-action="Delete" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="MaterialId" />
+
+            <div class="alert alert-warning">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                <strong>¿Está seguro que desea eliminar este transformador?</strong> Esta acción no se puede deshacer.
+            </div>
+
+            <div class="table-responsive mb-3">
+                <table class="table table-delete table-bordered">
+                    <tbody>
+                        <tr><th>Código</th><td>@Model.Code</td></tr>
+                        <tr><th>Nombre</th><td>@Model.Name</td></tr>
+                        <tr><th>Unidad de medida</th><td>@Model.UnitOfMeasure?.Name</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="d-flex justify-content-start gap-2">
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Cancelar
+                </a>
+                <button type="submit" class="btn btn-danger">
+                    <i class="bi bi-trash"></i> Eliminar
+                </button>
+            </div>
+        </form>
+    }
+</div>
+

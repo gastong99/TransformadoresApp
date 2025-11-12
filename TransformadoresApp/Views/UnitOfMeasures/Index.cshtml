@@ -1,0 +1,46 @@
+﻿@model IEnumerable<TransformadoresApp.Models.UnitOfMeasure>
+@{
+    ViewData["Title"] = "Unidades de medida";
+}
+
+<div class="mt-4 d-flex justify-content-start gap-2" style="margin-bottom: 15px;">
+    <a asp-controller="Admin" asp-action="Index" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> Volver
+    </a>
+</div>
+
+<div class="card shadow-sm p-4">
+    <h2 class="mb-4 text-center"><i class="bi bi-rulers text-success"></i> Unidades de medida</h2>
+
+    <div class="d-flex mb-n">
+        <a asp-action="Create" class="btn btn-success align-content-center">
+            <i class="bi bi-plus-circle"></i> Nueva unidad
+        </a>
+    </div>
+
+    <table class="table table-striped table-hover mt-3">
+        <thead class="table-primary">
+            <tr>
+                <th class="text-center">ID</th>
+                <th class="text-center">Nombre</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                <tr>
+                    <td class="text-center">@item.UnitOfMeasureId</td>
+                    <td class="text-center">@item.Name</td>
+                    <td class="text-end">
+                        <a asp-action="Edit" asp-route-id="@item.UnitOfMeasureId" class="btn btn-sm btn-warning">
+                            <i class="bi bi-pencil"></i> Modificar
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@item.UnitOfMeasureId" class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash"></i> Eliminar
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

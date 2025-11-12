@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Inicio";
+}
+
+<div class="landing-container">
+    <div class="login-box text-center">
+        <div id="loginForm">
+            <partial name="~/Views/Shared/_LoginPartialLanding.cshtml" />
+        </div>
+        <div id="registerForm" class="d-none">
+            <partial name="~/Views/Shared/_RegisterPartialLanding.cshtml" />
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("click", function (e) {
+            if (e.target.matches(".toggle-register")) {
+                e.preventDefault();
+                document.getElementById("loginForm").classList.add("d-none");
+                document.getElementById("registerForm").classList.remove("d-none");
+            }
+            if (e.target.matches(".toggle-login")) {
+                e.preventDefault();
+                document.getElementById("registerForm").classList.add("d-none");
+                document.getElementById("loginForm").classList.remove("d-none");
+            }
+        });
+    </script>
+}

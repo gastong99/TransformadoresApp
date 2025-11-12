@@ -1,0 +1,30 @@
+﻿@model TransformadoresApp.Models.UnitOfMeasure
+@{
+    ViewData["Title"] = "Nueva unidad de medida";
+}
+
+<div class="card shadow-sm p-4">
+    <h2 class="mb-4"><i class="bi bi-plus-circle"></i> Nueva unidad de medida</h2>
+
+    <form asp-action="Create" method="post">
+        @Html.AntiForgeryToken()
+
+        <div class="row g-3">
+            <div class="col mb-3">
+                <label asp-for="Name" class="form-label">Nombre</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mt-4 d-flex justify-content-start gap-2">
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Volver
+            </a>
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-save"></i> Guardar
+            </button>
+        </div>
+    </form>
+</div>
+

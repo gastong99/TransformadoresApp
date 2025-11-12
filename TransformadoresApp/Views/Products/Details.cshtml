@@ -1,0 +1,68 @@
+@model TransformadoresApp.Models.Product
+@{
+    ViewData["Title"] = "Detalles del Transformador";
+}
+
+<div class="card shadow-sm p-4 mb-5">
+    <h2 class="mb-4"><i class="bi bi-file-text"></i> Detalles del Transformador</h2>
+
+    <div class="table-responsive mb-4">
+        <table class="table table-bordered">
+            <tbody>
+                <tr><th>Código</th><td>@Model.Code</td></tr>
+                <tr><th>Nombre</th><td>@Model.Name</td></tr>
+                <tr><th>Potencia (kVA)</th><td>@Model.PotenciaKVA</td></tr>
+                <tr><th>Pérdidas Po (W)</th><td>@Model.PerdidasPo</td></tr>
+                <tr><th>Pérdidas Pcc (W)</th><td>@Model.PerdidasPcc</td></tr>
+                <tr><th>Ucc (%)</th><td>@Model.Ucc</td></tr>
+                <tr><th>Dimensiones</th><td>Largo: @Model.Largo — Ancho: @Model.Ancho — Alto: @Model.Alto</td></tr>
+                <tr><th>Diámetro (mm)</th><td>@Model.Diametro</td></tr>
+                <tr><th>Peso (Kg)</th><td>@Model.Peso</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h4 class="mt-4"><i class="bi bi-gear"></i> Materiales de fabricación (BOM)</h4>
+
+    @if (Model.BomItems != null && Model.BomItems.Any()) {
+        <div class="table-responsive mt-2 mb-4">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-info">
+                    <tr>
+                        <th>Material</th>
+                        <th class="text-end">Cantidad</th>
+                        <th>Unidad de medida</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.BomItems) {
+                        <tr>
+                            <td>@item.Material?.Name</td>
+                            <td class="text-end">@item.QuantityPerUnit</td>
+                            <td>@item.Material?.UnitOfMeasure?.Name</td>
+                            <td class="text-end">
+                                <a asp-controller="BomItems" asp-action="Edit" asp-route-id="@item.BomItemId" class="btn btn-sm btn-outline-warning me-1" style="color:dimgrey;">
+                                    <i class="bi bi-pencil"></i> Modificar
+                                </a>
+                                <a asp-controller="BomItems" asp-action="Delete" asp-route-id="@item.BomItemId" class="btn btn-sm btn-outline-danger" style="color:black;">
+                                    <i class="bi bi-trash"></i> Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else {
+        <p class="text-muted mb-4">No hay materiales asociados.</p>
+    }
+
+    <div class="mt-4 d-flex justify-content-start gap-2">
+        <a asp-action="Index" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Volver</a>
+        <a asp-controller="BomItems" asp-action="Create" asp-route-productId="@Model.ProductId" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Agregar material
+        </a>
+    </div>
+</div>
